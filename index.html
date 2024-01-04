@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="main.go" onclick="copyFileContent(event)">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
+
+    <script>
+        function copyFileContent(event) {
+            event.preventDefault(); // Prevent the default behavior of the link
+
+            // Get the href attribute of the clicked link
+            var fileUrl = event.currentTarget.getAttribute('href');
+
+            // Use XMLHttpRequest to fetch the content of the file
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var fileContent = xhr.responseText;
+
+                    // Create a textarea to store the content temporarily
+                    var textArea = document.createElement('textarea');
+                    textArea.value = fileContent;
+                    document.body.appendChild(textArea);
+
+                    // Select and copy the content to the clipboard
+                    textArea.select();
+                    document.execCommand('copy');
+
+                    // Remove the textarea
+                    document.body.removeChild(textArea);
+
+                    // Optionally, you can display an alert or perform other actions
+                }
+            };
+            xhr.open('GET', fileUrl, true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
